@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as UserLogin, logout as UserLogout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     return render(request, 'home.html')
@@ -42,7 +43,8 @@ def login(request):
     else:
         form = AuthenticationForm()
         return render(request, 'login.html', {'form':form})
-    
+
+@login_required
 def logout(request):
     UserLogout(request)
     messages.success(request, 'You are logged out')

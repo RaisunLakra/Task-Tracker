@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
 {%block content %}
-  <h1>Task Tracker</h1>
+  <h1>Task Tracker HOME PAGE</h1>
+  {% if request.user.is_authenticated %}
+  <li>
+    <a href="/app/">My List</a>
+  </li>
+  {%endif %}
 {% endblock %}

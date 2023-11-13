@@ -19,6 +19,7 @@ class Task(models.Model):
     deadline = models.DateTimeField(default=timezone.now)
     priority = models.IntegerField(choices=PRIORITY_CHOICES,default=2)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.TextField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if self.deadline is None or (self.deadline and self.deadline < self.date):
@@ -27,13 +28,6 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
-    
-class Description(models.Model):
-    title = models.ForeignKey(Task, on_delete=models.CASCADE)
-    description = models.TextField(null=True, blank=True) # blank = True means that the description is alowed to be blank during form validation and null = True means that if value is empty then it will be null
-
-    def __str__(self):
-        return self.title.title
 
     # makemigration command convertes the python code in sql and save the changes
     # table will be created after migrate command to show the table in the admin panel go to admin.py page and register the table in the admin panel
